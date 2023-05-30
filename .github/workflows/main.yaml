@@ -12,7 +12,10 @@ jobs:
     - name: Send a message to Webex Space
       shell: bash
       run: |
-       curl -X POST https://webexapis.com/v1/messages -H 'Authorization: Bearer ${{ secrets.WEBEX_TOKEN }}' -H 'Content-type: application/json' -d '{
+       curl -X POST https://webexapis.com/v1/messages \
+       -H 'Authorization: Bearer ${{ secrets.WEBEX_TOKEN }}' \
+       -H 'Content-type: application/json' \
+       -d '{
           "roomId": "${{ secrets.WEBEX_ROOM_ID }}",
           "text": "메세지입니다 - FROM GITHUB ACTION"
         }'
@@ -24,3 +27,12 @@ jobs:
         WEBEX_TOKEN: ${{ secrets.WEBEX_TOKEN }}
         WEBEX_ROOM_ID: ${{ secrets.WEBEX_ROOM_ID }}
         MARKDOWN_MESSAGE: "**Hello, world! You just ran an action from ${{ github.repository }}.**"
+
+
+    - name: Send message from custom action to webex
+      uses: .github/actions@main
+      with:
+        webexToken: ${{ secrets.WEBEX_TOKEN }}
+        webexRoomId: ${{ secrets.WEBEX_ROOM_ID }}
+        bodyText: 'Message sent by Github Actions from ${{ github.repository }}'
+        bodyMarkdown: "**Hello, world! You just ran an action from ${{ github.repository }}.**"
