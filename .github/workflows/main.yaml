@@ -9,69 +9,13 @@ jobs:
     runs-on: 'ubuntu-latest'
 
     steps:
-    - name: Say Hello World 1 - ${{ matrix.os }}
+    - name: Send a message to Webex Space
       shell: bash
       run: |
-       echo "OS: ${{ matrix.os }} "
-       echo "nodejs version: ${{ matrix.nodejs }}"
-
-  deploy-dev:
-    name: 'Deploy to dev'
-
-    needs:
-      - build-test
-
-    runs-on: 'ubuntu-latest'
-
-    steps:
-    - name: Say Hello World 1 - ${{ matrix.os }}
-      shell: bash
-      run: |
-       echo "OS: ${{ matrix.os }} "
-       echo "nodejs version: ${{ matrix.nodejs }}"
-
-  deploy-staging1:
-    name: 'Deploy to staging1'
-
-    needs:
-      - deploy-dev
-
-    runs-on: 'ubuntu-latest'
-
-    steps:
-    - name: Say Hello World 1 - ${{ matrix.os }}
-      shell: bash
-      run: |
-       echo "OS: ${{ matrix.os }} "
-       echo "nodejs version: ${{ matrix.nodejs }}"
-
-  deploy-staging2:
-    name: 'Deploy to staging2'
-
-    needs:
-      - deploy-dev
-
-    runs-on: 'ubuntu-latest'
-
-    steps:
-    - name: Say Hello World 1 - ${{ matrix.os }}
-      shell: bash
-      run: |
-       echo "OS: ${{ matrix.os }} "
-       echo "nodejs version: ${{ matrix.nodejs }}"
-
-  deploy-prod:
-    name: 'Deploy to prod'
-
-    needs:
-      - deploy-staging1
-      - deploy-staging2
-
-    runs-on: 'ubuntu-latest'
-
-    steps:
-    - name: Say Hello World 1 - ${{ matrix.os }}
-      shell: bash
-      run: |
-       echo "OS: ${{ matrix.os }} "
-       echo "nodejs version: ${{ matrix.nodejs }}"
+       curl -X POST https://webexapis.com/v1/messages \
+        -H "Authorization: Bearer ${{ secrets.WEBEX_TOKEN }}" \
+        -H "Content-type: application/json" \
+        -d "{
+          "roomId": ${{ secrets.WEBEX_ROOM_ID }},
+          "text": "메세지입니다 - FROM GITHUB ACTION"
+        }"
