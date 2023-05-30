@@ -12,10 +12,7 @@ jobs:
     - name: Send a message to Webex Space
       shell: bash
       run: |
-       curl -X POST https://webexapis.com/v1/messages \
-        -H 'Authorization: Bearer ${{ secrets.WEBEX_TOKEN }}' \
-        -H 'Content-type: application/json' \
-        -d '{
+       curl -X POST https://webexapis.com/v1/messages -H 'Authorization: Bearer ${{ secrets.WEBEX_TOKEN }}' -H 'Content-type: application/json' -d '{
           "roomId": ${{ secrets.WEBEX_ROOM_ID }},
           "text": "메세지입니다 - FROM GITHUB ACTION"
         }'
