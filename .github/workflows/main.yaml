@@ -3,15 +3,10 @@ name: 'SWM GitHub Actions Basic'
 on: push
 
 jobs:
-  first-job:
-    name: 'First Job'
+  build-test:
+    name: 'Build & Test'
 
-    strategy:
-      matrix:
-        os: ['ubuntu-latest', 'windows-latest', 'macos-latest']
-        nodejs: ['16', '18']
-
-    runs-on: ${{ matrix.os }}
+    runs-on: 'ubuntu-latest'
 
     steps:
     - name: Say Hello World 1 - ${{ matrix.os }}
@@ -20,8 +15,49 @@ jobs:
        echo "OS: ${{ matrix.os }} "
        echo "nodejs version: ${{ matrix.nodejs }}"
 
-    - name: Say Hello World 2 - ${{ matrix.os }}
-      if: matrix.os == 'windows-latest' && matrix.nodejs == '16'
+  deploy-dev:
+    name: 'Deploy to dev'
+
+    runs-on: 'ubuntu-latest'
+
+    steps:
+    - name: Say Hello World 1 - ${{ matrix.os }}
+      shell: bash
+      run: |
+       echo "OS: ${{ matrix.os }} "
+       echo "nodejs version: ${{ matrix.nodejs }}"
+
+  deploy-staging1:
+    name: 'Deploy to staging1'
+
+    runs-on: 'ubuntu-latest'
+
+    steps:
+    - name: Say Hello World 1 - ${{ matrix.os }}
+      shell: bash
+      run: |
+       echo "OS: ${{ matrix.os }} "
+       echo "nodejs version: ${{ matrix.nodejs }}"
+
+  deploy-staging2:
+    name: 'Deploy to staging2'
+
+    runs-on: 'ubuntu-latest'
+
+    steps:
+    - name: Say Hello World 1 - ${{ matrix.os }}
+      shell: bash
+      run: |
+       echo "OS: ${{ matrix.os }} "
+       echo "nodejs version: ${{ matrix.nodejs }}"
+
+  deploy-prod:
+    name: 'Deploy to prod'
+
+    runs-on: 'ubuntu-latest'
+
+    steps:
+    - name: Say Hello World 1 - ${{ matrix.os }}
       shell: bash
       run: |
        echo "OS: ${{ matrix.os }} "
